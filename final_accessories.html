@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html data-theme="dark" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EIDEN | Accessories</title>
+  <style>
+    :root {
+      --bg: #111;
+      --header-bg: rgba(0,0,0,0.5);
+      --footer-bg: #000;
+      --text: #00f0ff;
+      --accent: #00bcd4;
+      --accent-hover: #00e5ff;
+    }
+    [data-theme="light"] {
+      --bg: #f5f5f5;
+      --header-bg: rgba(255,255,255,0.8);
+      --footer-bg: #222;
+      --text: #111;
+      --accent: #00688b;
+      --accent-hover: #005f7a;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Courier New', monospace;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 80px;
+      background: var(--header-bg);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 1000;
+    }
+    .logo {
+      width: 150px;
+      filter: drop-shadow(0 0 5px var(--accent));
+    }
+    .scroll-banner {
+      flex: 1;
+      overflow: hidden;
+      white-space: nowrap;
+      margin: 0 20px;
+    }
+    .scroll-text {
+      display: inline-block;
+      padding-left: 100%;
+      animation: scroll-left 12s linear infinite;
+      font-size: 18px;
+      color: var(--text);
+      text-shadow: 0 0 10px var(--accent-hover);
+    }
+    @keyframes scroll-left {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+    }
+    .header-nav {
+      display: flex;
+      align-items: center;
+    }
+    #themeToggle {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: var(--text);
+      margin-right: 10px;
+    }
+    .header-nav a {
+      margin-left: 10px;
+      padding: 8px 16px;
+      background: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    .header-nav a:hover {
+      background: var(--accent-hover);
+    }
+    .cart-icon {
+      position: relative;
+      font-size: 24px;
+      cursor: pointer;
+      margin-left: 10px;
+    }
+    .cart-count {
+      position: absolute;
+      top: -6px; right: -10px;
+      background: var(--accent-hover);
+      color: #000;
+      border-radius: 50%;
+      width: 18px; height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    #cartPanel {
+      display: none;
+      position: fixed;
+      top: 80px; right: 20px;
+      width: 320px;
+      max-height: 400px;
+      background: #fff;
+      color: #000;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      overflow-y: auto;
+      padding: 10px;
+      z-index: 1001;
+    }
+    #cartPanel h3 {
+      margin-top: 0;
+      font-size: 1.2rem;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 6px;
+      margin-bottom: 10px;
+    }
+    #cartPanel ul {
+      list-style: none;
+      padding: 0; margin: 0;
+    }
+    #cartPanel ul li {
+      background: #f9f9f9;
+      padding: 8px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+    }
+    .cart-btn {
+      background: #e0e0e0;
+      color: #000;
+      border: none;
+      border-radius: 4px;
+      margin: 0 4px;
+      padding: 2px 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    .cart-btn:hover {
+      background: #ccc;
+    }
+    #emptyCartBtn {
+      width: 100%;
+      margin-top: 8px;
+      padding: 10px;
+      background: #dc3545;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    #emptyCartBtn:hover {
+      background: #c82333;
+    }
+    #checkoutBtn {
+      width: 100%;
+      margin-top: 8px;
+      padding: 10px;
+      background: #28a745;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    #checkoutBtn:hover {
+      background: #218838;
+    }
+    main {
+      padding: 100px 20px 60px;
+      flex: 1;
+    }
+    .tab-controls {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .tab-btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .tab-btn:hover {
+      background: var(--accent-hover);
+    }
+    .tab-btn.active {
+      background: var(--accent-hover);
+      font-weight: bold;
+    }
+    .tab-content {
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    .products-grid, .bundles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .product-card {
+      background: rgba(0,0,0,0.6);
+      border-radius: 10px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+    }
+    .product-card:hover {
+      box-shadow: 0 0 20px var(--accent-hover);
+    }
+    .avatar-container {
+      width: 100px; height: 100px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin: 0 auto 10px;
+      border: 2px solid var(--accent);
+    }
+    .avatar-container img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .product-card h2 {
+      margin: 10px 0 5px;
+      font-size: 1.1rem;
+      text-align: center;
+    }
+    .product-card p {
+      margin: 4px 0;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+    .details-panel {
+      background: rgba(0,0,0,0.8);
+      padding: 12px;
+      border-radius: 8px;
+      text-align: left;
+      font-size: 0.85rem;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    .details-panel ul {
+      padding-left: 18px;
+      margin: 5px 0;
+    }
+    .add-to-cart {
+      margin-top: auto;
+      padding: 10px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s;
+      font-size: 0.95rem;
+    }
+    .add-to-cart:hover {
+      background: var(--accent-hover);
+    }
+    .template {
+      opacity: 0.6;
+    }
+    footer {
+      background: var(--footer-bg);
+      color: var(--accent);
+      text-align: center;
+      padding: 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img alt="EIDEN Logo" class="logo" src="./eidenlogows.png"/>
+    <div class="scroll-banner">
+      <div class="scroll-text">| Emotional Packs &amp; Bundles |</div>
+    </div>
+    <div class="header-nav">
+      <button id="themeToggle">🌙</button>
+      <a href="full_demo_website_FINAL_NAV_MOVED_AFTER_HEADER.html">Home</a>
+      <a href="buy_page_FIXED_COMPLETE.html">AI Products</a>
+      <a href="accessories_FIXED_COMPLETE.html">Accessories</a>
+      <div class="cart-icon" id="cartIcon">
+        🛒<div class="cart-count" id="cartCount">0</div>
+      </div>
+    </div>
+  </header>
+
+  <div id="cartPanel">
+    <h3>Your Cart</h3>
+    <ul id="cartItems"></ul>
+    <div id="cartSummary">Total: $0.00</div>
+    <button id="emptyCartBtn">Empty Cart</button>
+    <button id="checkoutBtn">Checkout</button>
+  </div>
+
+  <main>
+    <div class="tab-controls">
+      <button class="tab-btn active" data-target="packs">Packs</button>
+      <button class="tab-btn" data-target="bundles">Bundles</button>
+    </div>
+
+    <div class="tab-content active" id="packs">
+      <div class="products-grid">
+        <!-- Emotional Packs -->
+        <div class="product-card">
+          <div class="avatar-container"><img alt="Emotional Pack 1" src="./ep1_icon.png"/></div>
+          <h2>Emotional Pack 1: Joy</h2>
+          <p><strong>Price:</strong> $25.00</p>
+          <p>Amplify positivity and happiness in Bishop’s responses.</p>
+          <div class="details-panel">
+            <h4>Pack Contents</h4>
+            <ul>
+              <li>Joy-driven dialogue scripts</li>
+              <li>Uplifting tone modules</li>
+            </ul>
+          </div>
+          <button class="add-to-cart" onclick="addToCart('Emotional Pack 1: Joy', 25.00);">Add to Cart</button>
+        </div>
+        <div class="product-card">
+          <div class="avatar-container"><img alt="Emotional Pack 2" src="./ep2_icon.png"/></div>
+          <h2>Emotional Pack 2: Calm</h2>
+          <p><strong>Price:</strong> $49.00</p>
+          <p>Enhance soothing and relaxed conversational style.</p>
+          <div class="details-panel">
+            <h4>Pack Contents</h4>
+            <ul>
+              <li>Calm-response algorithms</li>
+              <li>Meditative dialogue patterns</li>
+            </ul>
+          </div>
+          <button class="add-to-cart" onclick="addToCart('Emotional Pack 2: Calm', 49.00);">Add to Cart</button>
+        </div>
+        <div class="product-card">
+          <div class="avatar-container"><img alt="Emotional Pack 3" src="./ep3_icon.png"/></div>
+          <h2>Emotional Pack 3: Curiosity</h2>
+          <p><strong>Price:</strong> $49.00</p>
+          <p>Unlock inquisitive and exploratory behaviors in Bishop.</p>
+          <div class="details-panel">
+            <h4>Pack Contents</h4>
+            <ul>
+              <li>Interactive discovery prompts</li>
+              <li>Questioning dialogue modules</li>
+            </ul>
+          </div>
+          <button class="add-to-cart" onclick="addToCart('Emotional Pack 3: Curiosity', 49.00);">Add to Cart</button>
+        </div>
+        <!-- Future Packs -->
+        <div class="product-card template">
+          <div class="avatar-container"><img alt="Future Pack 4" src="./holotempavatar.jpg"/></div>
+          <h2>Future Pack 4</h2>
+          <p>Coming soon.</p>
+          <button class="add-to-cart" disabled>Coming Soon</button>
+        </div>
+        <div class="product-card template">
+          <div class="avatar-container"><img alt="Future Pack 5" src="./holotempavatar.jpg"/></div>
+          <h2>Future Pack 5</h2>
+          <p>Coming soon.</p>
+          <button class="add-to-cart" disabled>Coming Soon</button>
+        </div>
+        <div class="product-card template">
+          <div class="avatar-container"><img alt="Future Pack 6" src="./holotempavatar.jpg"/></div>
+          <h2>Future Pack 6</h2>
+          <p>Coming soon.</p>
+          <button class="add-to-cart" disabled>Coming Soon</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-content" id="bundles">
+      <div class="bundles-grid">
+        <!-- Bundles -->
+        <div class="product-card">
+          <h2>Bundle: Joy + Calm</h2>
+          <p><strong>Includes:</strong><br/>Packs 1 &amp; 2</p>
+          <p><strong>Price:</strong> $89.00 <span style="text-decoration:line-through;color:#777;">$98.00</span></p>
+          <button class="add-to-cart" onclick="addToCart('Bundle: Joy + Calm', 89.00);">Add to Cart</button>
+        </div>
+        <div class="product-card">
+          <h2>Bundle: Calm + Curiosity</h2>
+          <p><strong>Includes:</strong><br/>Packs 2 &amp; 3</p>
+          <p><strong>Price:</strong> $89.00 <span style="text-decoration:line-through;color:#777;">$98.00</span></p>
+          <button class="add-to-cart" onclick="addToCart('Bundle: Calm + Curiosity', 89.00);">Add to Cart</button>
+        </div>
+        <!-- Future Bundles -->
+        <div class="product-card template">
+          <h2>Future Bundle 3</h2>
+          <p><strong>Includes:</strong><br/>Coming soon</p>
+          <p><strong>Price:</strong> TBD</p>
+          <button class="add-to-cart" disabled>Coming Soon</button>
+        </div>
+        <div class="product-card template">
+          <h2>Future Bundle 4</h2>
+          <p><strong>Includes:</strong><br/>Coming soon</p>
+          <p><strong>Price:</strong> TBD</p>
+          <button class="add-to-cart" disabled>Coming Soon</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>© 2025 EIDEN. All rights reserved.</footer>
+
+  <!-- exact buy/cart system script from buy_page_FIXED_COMPLETE.html -->
+  <script>
+    (function(){
+      const cart = {};
+      const cartIcon = document.getElementById('cartIcon');
+      const cartPanel = document.getElementById('cartPanel');
+      const cartItems = document.getElementById('cartItems');
+      const cartCount = document.getElementById('cartCount');
+      const cartSummary = document.getElementById('cartSummary');
+      const emptyBtn = document.getElementById('emptyCartBtn');
+      const checkoutBtn = document.getElementById('checkoutBtn');
+
+      window.addToCart = function(name, price) {
+        if (!cart[name]) cart[name] = { name, price, qty: 0 };
+        cart[name].qty++;
+        updateCartUI();
+      };
+
+      function updateCartUI() {
+        cartItems.innerHTML = '';
+        let totalQty = 0, totalAmt = 0;
+        Object.values(cart).forEach(item => {
+          totalQty += item.qty;
+          totalAmt += item.qty * item.price;
+          const li = document.createElement('li');
+          const spanName = document.createElement('span');
+          spanName.innerText = item.name;
+          const spanUnit = document.createElement('span');
+          spanUnit.innerText = ' @$' + item.price.toFixed(2);
+          const spanQty = document.createElement('span');
+          spanQty.innerText = 'Qty: ' + item.qty;
+          const minus = document.createElement('button');
+          minus.className = 'cart-btn'; minus.innerText = '-';
+          const plus = document.createElement('button');
+          plus.className = 'cart-btn'; plus.innerText = '+';
+          const spanTotal = document.createElement('span');
+          spanTotal.innerText = '$' + (item.price * item.qty).toFixed(2);
+
+          minus.onclick = () => { item.qty--; if (item.qty < 1) delete cart[item.name]; updateCartUI(); };
+          plus.onclick = () => { item.qty++; updateCartUI(); };
+
+          li.append(spanName, spanUnit, spanQty, minus, plus, spanTotal);
+          cartItems.appendChild(li);
+        });
+        cartCount.innerText = totalQty;
+        cartCount.style.display = totalQty > 0 ? 'flex' : 'none';
+        if (cartSummary) cartSummary.innerText = 'Total: $' + totalAmt.toFixed(2);
+      }
+
+      cartIcon.onclick = () => {
+        cartPanel.style.display = cartPanel.style.display === 'block' ? 'none' : 'block';
+      };
+      emptyBtn.onclick = () => {
+        Object.keys(cart).forEach(k => delete cart[k]);
+        updateCartUI();
+      };
+      checkoutBtn.onclick = () => {
+        window.location.href = 'https://checkout.stripe.com/pay/cs_test_XXXXXXXXXXXXXXXXXXXXXXXX';
+      };
+
+      cartCount.style.display = 'none';
+    })();
+
+    function openPurchase() {
+      document.getElementById('purchase-modal').classList.add('show');
+    }
+    function closePurchase() {
+      document.getElementById('purchase-modal').classList.remove('show');
+    }
+    function confirmPurchase() {
+      const name = document.getElementById('buyer-name').value.trim();
+      const email = document.getElementById('buyer-email').value.trim();
+      if (name && email) {
+        alert(`Thank you, ${name}! A purchase confirmation has been sent to ${email}.`);
+        closePurchase();
+      } else {
+        alert('Please fill in all fields before confirming.');
+      }
+    }
+  </script>
+</body>
+</html>

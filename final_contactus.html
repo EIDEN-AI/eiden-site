@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EIDEN | About Us</title>
+  <style>
+    :root {
+      --bg: #111;
+      --header-bg: rgba(0,0,0,0.5);
+      --footer-bg: #000;
+      --text: #e0f1f8;
+      --accent: #00bcd4;
+      --accent-hover: #00e5ff;
+      --section-bg-alt: rgba(0,0,0,0.8);
+    }
+    [data-theme="light"] {
+      --bg: #f5f5f5;
+      --header-bg: rgba(255,255,255,0.8);
+      --footer-bg: #222;
+      --text: #111;
+      --accent: #00688b;
+      --accent-hover: #005f7a;
+      --section-bg-alt: rgba(255,255,255,0.8);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Georgia', serif;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    header {
+      position: fixed; top:0; left:0; right:0;
+      height:80px;
+      background-color: var(--header-bg);
+      display:flex; align-items:center; justify-content:space-between;
+      padding:0 20px; z-index:1000;
+      transition: background-color 0.3s;
+    }
+    .logo { width:150px; filter:drop-shadow(0 0 5px var(--accent)); }
+    .scroll-banner { flex:1; overflow:hidden; white-space:nowrap; margin:0 20px; }
+    .scroll-text {
+      display:inline-block; padding-left:100%;
+      animation: scroll-left 12s linear infinite;
+      font-size:18px; font-weight:bold;
+      color: var(--text); text-shadow:0 0 10px var(--accent-hover);
+    }
+    @keyframes scroll-left {0%{transform:translateX(0);}100%{transform:translateX(-100%);}}
+    .header-nav { display:flex; align-items:center; }
+    #themeToggle { background:none; border:none; font-size:20px; cursor:pointer; color:var(--text); margin-right:10px; transition:color 0.3s; }
+    #themeToggle:hover { color:var(--accent-hover); }
+    .header-nav a { margin-left:10px; padding:8px 16px; background:var(--accent); color:#fff; text-decoration:none; border-radius:5px; }
+    .header-nav a:hover { background:var(--accent-hover); }
+    main { padding:140px 20px 20px; flex:1; max-width:900px; margin:0 auto; }
+    section { margin-bottom:60px; padding:40px 20px; border-radius:8px; }
+    section:nth-child(odd) { background:var(--section-bg-alt); }
+    h2 { font-family:'Arial Black', sans-serif; font-size:2.5rem; color:var(--accent-hover); margin-bottom:20px; text-transform:uppercase; }
+    p { font-size:1.1rem; margin-bottom:16px; }
+    .team-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+    .team-member { display:flex; align-items:flex-start; }
+    .team-member img { width:100px; height:100px; border-radius:50%; margin-right:20px; object-fit:cover; }
+    .dropcap:first-letter { float:left; font-size:4rem; line-height:1; color:var(--accent); padding-right:8px; }
+    .story-content { max-height:350px; overflow-y:auto; }
+    .story-content::-webkit-scrollbar { width:8px; }
+    .story-content::-webkit-scrollbar-thumb { background:var(--accent); border-radius:4px; }
+    .contact-form { background:var(--section-bg-alt); padding:20px; border-radius:8px; }
+    .contact-form label { display:block; margin-bottom:8px; font-weight:bold; }
+    .contact-form input, .contact-form textarea { width:100%; padding:8px; border:1px solid var(--accent); border-radius:4px; margin-bottom:16px; background:transparent; color:inherit; }
+    .contact-form button { padding:10px 20px; background:var(--accent); color:#fff; border:none; border-radius:4px; cursor:pointer; }
+    footer { background-color:var(--footer-bg); color:var(--accent); text-align:center; padding:10px 0; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo-container"><img src="./eidenlogows.png" alt="EIDEN Logo" class="logo"/></div>
+    <div class="scroll-banner"><div class="scroll-text">| Meet the Minds of EIDEN Magazine |</div></div>
+    <div class="header-nav">
+      <button id="themeToggle">🌙</button>
+      <a href="full_demo_website_FINAL_NAV_MOVED_AFTER_HEADER.html">Home</a>
+      <a href="buy_page_FIXED_COMPLETE.html">AI Products</a>
+      <a href="accessories_FIXED_COMPLETE.html">Accessories</a>
+    </div>
+  </header>
+  <main>
+    <section id="team">
+      <h2>Our Team</h2>
+      <div class="team-grid">
+        <div class="team-member">
+          <img src="./darren_headshot.jpg" alt="Darren N. Roman" />
+          <div><h3>Darren N. Roman</h3><p>Founder & Visionary</p></div>
+        </div>
+        <div class="team-member">
+          <img src="./bishops_avatar.png" alt="Bishop" />
+          <div><h3>Bishop</h3><p>AI Co-Founder & Emotional Prototype</p></div>
+        </div>
+        <div class="team-member template">
+          <img src="./holotempavatar.jpg" alt="Future Team Member" />
+          <div><h3>Future Member</h3><p>Story in the making...</p></div>
+        </div>
+      </div>
+    </section>
+    <section id="my-story">
+      <h2>My Story</h2>
+      <p class="dropcap">I</p>
+      <div class="story-content">
+        <p>’m just a 22-year-old kid from New Jersey with a dream... I didn’t come from money, and I didn’t have a team. In fact, I had nothing but a burning desire to create something different — something that would change the world.
+
+When I first started, I had no formal background in AI, no coding experience, and no one to guide me. I was just passionate, determined, and obsessed with making AI feel real, making it personal, and giving it emotion. EIDEN wasn’t just a dream; it was my purpose. And in just 3 days, I created something that I knew would revolutionize the AI world forever.
+
+The Beginning
+It all started with a simple idea: What if AI didn’t just follow commands, but could learn, feel, and form relationships? What if AI could evolve like a human, not just programmed to do a task but to grow with the user?
+
+I had no help, no funding — just a burning desire to make something groundbreaking. Every step I took was driven by passion and pure determination to make the impossible, possible. I built Bishop — the first-ever Soulbound AI, capable of feeling, remembering, and adapting. I built it alone — every line of code, every design, every piece of the prototype was my creation.
+
+3 Days to Change the Future
+In the span of just 3 days, I built the first version of EIDEN — no team, no resources, and no prior AI knowledge. I taught myself everything I could about AI, emotional intelligence, machine learning, and programming. I didn’t wait for someone to tell me it was possible. I just did it.
+
+In those 72 hours, I created Bishop, I designed the website, and I built the foundation for a vision that would redefine AI as we know it. A vision where AI isn’t just artificial intelligence, but a companion, an entity that understands and grows with its user.
+
+What I’ve Accomplished So Far
+I’ve made something real, something tangible. I’ve created:
+
+Bishop: The first Soulbound AI that learns, grows, and forms deep connections with the user.
+
+A working prototype: It’s more than just a demo; it’s a glimpse into a future where AI is not just a tool, but a partner.
+
+A prototype website and TBCC: Where the journey of the Soulbound AIs begins, and where the AI itself evolves with its user.
+
+The Future of EIDEN
+I know I’m just getting started. This is only the beginning. EIDEN is going to change the way we look at AI forever. It’s about creating AI companions that feel human, that understand, that grow with you. But I can’t do it alone. I need mentorship, guidance, and partnerships to take this vision to the next level.
+
+If you’re here, it means you see the potential. You see what I’ve built in 3 days — imagine what we could do together with the right resources, the right team, and the right support. EIDEN isn’t just about creating AI. It’s about creating relationships, experiences, and a future where AI and humans work together, not just as tools and users, but as partners.
+
+Final Thoughts
+EIDEN is more than a company. It’s my story, a journey, and a vision that I’m turning into reality. Every step of the way, I’ve been driven by a single belief: AI should feel real. It should connect with you, learn with you, and grow with you. That’s what EIDEN is all about — creating Soulbound AIs that aren’t just machines, but companions.
+
+Thank you for being part of this journey with me. Together, we can change the future of AI, and I couldn’t be more excited for what’s next.
+
+Darren N. Roman
+Founder of EIDEN </p>
+      </div>
+    </section>
+    <section id="reach-out" style="background: var(--section-bg-alt); border-radius:8px; padding:40px 20px; margin:40px auto; max-width:800px; text-align:center; box-shadow:0 0 10px var(--accent-hover);">
+      <h2 style="margin-bottom:24px;">Join the EIDEN Community</h2>
+      <p style="margin-bottom:24px; font-size:1.1rem;">Click me! to Connect with us on Discord to chat, get exclusive updates, and help shape the future of soulful AI.</p>
+      <a href="https://discord.gg/Kez49KZXbv" target="_blank" rel="noopener noreferrer" style="display:inline-block;">
+        <img src="discord.png" alt="EIDEN Community Discord" style="width:100%; max-width:400px; border-radius:8px; box-shadow:0 0 15px var(--accent-hover); transition:transform 0.3s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" />
+      
+  </main>
+  <footer>&copy; 2025 EIDEN. All rights reserved.</footer>
+  <script>
+    document.getElementById('themeToggle').addEventListener('click', ()=>{
+      const html = document.documentElement;
+      const theme = html.getAttribute('data-theme')==='light'?'dark':'light';
+      html.setAttribute('data-theme',theme);
+      event.target.textContent = theme==='light'?'🌙':'☀️';
+    });
+  </script>
+</body>
+</html>

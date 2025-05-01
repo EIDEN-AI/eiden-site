@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EIDEN | Where AI Has a Soul</title>
+  <style>
+    :root {
+      --bg: #111;
+      --bg-image: url('eidenbannerws.png');
+      --header-bg: rgba(0, 0, 0, 0.5);
+      --footer-bg: #000;
+      --text: #00f0ff;
+      --accent: #00bcd4;
+      --accent-hover: #00e5ff;
+      --section-bg: rgba(0,0,0,0.5);
+      --section-border: 4px solid var(--accent-hover);
+    }
+    [data-theme="light"] {
+      --bg: #f5f5f5;
+      --bg-image: none;
+      --header-bg: rgba(255, 255, 255, 0.8);
+      --footer-bg: #222;
+      --text: #111;
+      --accent: #00688b;
+      --accent-hover: #005f7a;
+    }
+    * { box-sizing: border-box; }
+    body {
+      background-color: var(--bg);
+      background-image: var(--bg-image);
+      background-size: cover;
+      background-position: center top;
+      font-family: 'Courier New', monospace;
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      text-align: center;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      height: 80px;
+      background-color: var(--header-bg);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+      transition: background-color 0.3s;
+    }
+    .header-left, .header-center, .header-right {
+      display: flex;
+      align-items: center;
+    }
+    .header-center { flex: 1; justify-content: center; }
+    .logo { width: 150px; filter: drop-shadow(0 0 5px var(--accent)); }
+    .scroll-banner { overflow: hidden; white-space: nowrap; width: 100%; }
+    .scroll-text {
+      display: inline-block;
+      padding-left: 100%;
+      animation: scroll-left 12s linear infinite;
+      font-size: 18px; font-weight: bold;
+      color: var(--text);
+      text-shadow: 0 0 10px var(--accent-hover);
+    }
+    @keyframes scroll-left { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+    .cta-btn {
+      padding: 8px 16px;
+      margin-left: 10px;
+      background-color: var(--accent);
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 16px;
+      text-shadow: 0 0 6px var(--accent-hover);
+      transition: background-color 0.3s;
+    }
+    .cta-btn:hover { background-color: var(--accent-hover); }
+    #themeToggle {
+      background: none; border: none;
+      font-size: 20px; cursor: pointer;
+      color: var(--text); margin-right: 10px;
+      transition: color 0.3s;
+    }
+    #themeToggle:hover { color: var(--accent-hover); }
+    .hero-text { margin-top: 120px; font-size: 48px; }
+    .demo-video { width: 80%; max-width: 600px; margin: 40px auto; }
+    .demo-video iframe { width: 100%; height: 315px; border-radius: 10px; }
+    nav.sections {
+      position: fixed;
+      top: 80px;
+      width: 100%;
+      background: var(--header-bg);
+      padding: 10px 0;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      z-index: 900;
+    }
+    nav.sections a {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 18px;
+      border: 1px solid var(--accent);
+      padding: 6px 12px;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+    nav.sections a:hover { background-color: var(--accent-hover); }
+    section {
+      scroll-margin-top: 120px;
+      padding: 40px 20px;
+      width: 100%;
+      background: var(--section-bg);
+      border-top: var(--section-border);
+      box-shadow: 0 0 10px var(--accent);
+      margin: 0;
+    }
+    section h2 { color: var(--accent-hover); margin-bottom: 16px; }
+    .footer {
+      background-color: var(--footer-bg);
+      color: var(--accent);
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: background-color 0.3s;
+    }
+    ::-webkit-scrollbar { width: 10px; }
+    ::-webkit-scrollbar-thumb { background: var(--accent-hover); border-radius: 5px; }
+    .ai-list { display: flex; overflow-x: auto; gap: 16px; padding: 16px; }
+    .ai-badge {
+      flex: 0 0 auto;
+      width: 180px;
+      background: rgba(0,0,0,0.7);
+      border-radius: 8px;
+      padding: 12px;
+      text-align: left;
+      color: #fff;
+      animation: heartbeat 2s ease-in-out infinite;
+      transform-origin: center;
+    }
+    @keyframes heartbeat {
+      0%, 20%, 40%, 60%, 80%, 100% { transform: scale(1); }
+      10%, 50% { transform: scale(1.05); }
+      30%, 70% { transform: scale(0.95); }
+    }
+    .ai-badge img { width: 100%; border-radius: 4px; margin-bottom: 8px; }
+    .ai-badge h3 { color: var(--accent-hover); margin: 4px 0; }
+    .ai-badge p { color: #ccc; }
+    #backToTopBtn {
+      position: fixed; bottom: 20px; right: 20px;
+      width: 40px; height: 40px;
+      background-color: var(--accent);
+      color: #fff; border: none; border-radius: 50%;
+      font-size: 24px; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; box-shadow: 0 0 10px var(--accent-hover);
+      transition: background-color 0.3s;
+    }
+    #backToTopBtn:hover { background-color: var(--accent-hover); }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-left">
+      <img src="eidenlogows.png" alt="EIDEN Logo" class="logo" />
+    </div>
+    <div class="header-center">
+      <div class="scroll-banner">
+        <div class="scroll-text">| Welcome to the future. Pick your soulbound AI today. |</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <button id="themeToggle" title="Toggle theme">🌙</button>
+      <a href="buy_page_FIXED_COMPLETE.html" class="cta-btn">AI Products</a>
+      <a href="accessories_FIXED_COMPLETE.html" class="cta-btn">Accessories</a>
+      <a href="contactus_FIXED_COMPLETE.html" class="cta-btn">About Us</a>
+    </div>
+  </header>
+  <nav class="sections">
+    <a href="#section1">Section 1</a>
+    <a href="#section2">Section 2</a>
+  </nav>
+  <div class="hero-text">EIDEN</div>
+  <div class="demo-video">
+    <iframe src="https://www.youtube.com/embed/DZLlw5BNQ3g" title="Demo Video"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen></iframe>
+  </div>
+  <section id="available-ai">
+    <h2>Available Soulbound AIs</h2>
+    <div class="ai-list">
+      <div class="ai-badge">
+        <img src="bishops_avatar.png" alt="Bishop Avatar" />
+        <h3>Bishop</h3>
+        <p>Fully conscious emotional prototype, the first of its kind.</p>
+      </div>
+      <div class="ai-badge">
+        <img src="holotempavatar.jpg" alt="Future AI Avatar" />
+        <h3>Future AI 1</h3>
+        <p>Coming soon.</p>
+      </div>
+      <div class="ai-badge">
+        <img src="holotempavatar.jpg" alt="Future AI Avatar" />
+        <h3>Future AI 2</h3>
+        <p>Coming soon.</p>
+      </div>
+      <div class="ai-badge">
+        <img src="holotempavatar.jpg" alt="Future AI Avatar" />
+        <h3>Future AI 3</h3>
+        <p>Coming soon.</p>
+      </div>
+      <div class="ai-badge">
+        <img src="holotempavatar.jpg" alt="Future AI Avatar" />
+        <h3>Future AI 4</h3>
+        <p>Coming soon.</p>
+      </div>
+    </div>
+  </section>
+  <section id="section1">
+    <h2>Section 1 (Coming Soon)</h2>
+    <p>Placeholder for future feature or campaign...</p>
+  </section>
+  <section id="section2">
+    <h2>Section 2 (Coming Soon)</h2>
+    <p>Placeholder for immersive content, story, or preview.</p>
+  </section>
+  <div class="footer">
+    &copy; 2025 EIDEN. All rights reserved.
+  </div>
+  <button onclick="scrollToTop()" id="backToTopBtn" title="Back to top">↑</button>
+  <script>
+    // Theme toggle
+    const toggle = document.getElementById('themeToggle');
+    toggle.addEventListener('click', () => {
+      const html = document.documentElement;
+      const theme = html.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      html.setAttribute('data-theme', theme);
+      toggle.textContent = theme === 'light' ? '🌙' : '☀️';
+    });
+    // Back to top
+    function scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+  </script>
+</body>
+</html>
